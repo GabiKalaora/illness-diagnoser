@@ -261,4 +261,24 @@ def optimal_tree(records, symptoms, depth):
 
 
 if __name__ == "__main__":
-    pass
+    	# Manually build a simple tree.
+	#                cough
+	#          Yes /       \ No
+	#        fever           healthy
+	#   Yes /     \ No
+	# covid-19   cold
+	
+	flu_leaf = Node("covid-19", None, None)
+	cold_leaf = Node("cold", None, None)
+	inner_vertex = Node("fever", flu_leaf, cold_leaf)
+	healthy_leaf = Node("healthy", None, None)
+	root = Node("cough", inner_vertex, healthy_leaf)
+	
+	diagnoser = Diagnoser(root)
+	
+	# basic of the basics test
+	diagnosis = diagnoser.diagnose(["cough"])
+	if diagnosis == "cold":
+		print("Test passed")
+	else:
+		print("Test failed. Should have printed cold, printed: ", diagnosis)
